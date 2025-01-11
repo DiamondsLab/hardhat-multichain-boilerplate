@@ -1,0 +1,12 @@
+{
+    "sarif-viewer.connectToGithubCodeScanning": "off",
+    "cSpell.words": [
+        "hexlify",
+        "NFTID",
+        "Pausibility",
+        "TESTGAME"
+    ],
+    "slither.solcPath": "",
+    "slither.hiddenDetectors": [],
+    "typescript.tsdk": "node_modules/typescript/lib"
+}
