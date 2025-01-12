@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug Unit Tests",
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js"],
-            "program": "${workspaceFolder}/test/index.ts",
+            "program": "${workspaceFolder}/test/hellow_test.ts",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
@@ -24,11 +24,11 @@
             "request": "launch",
             "console": "integratedTerminal",
             "preLaunchTask": "tsc: build - tsconfig.json",
-            "program": "${workspaceFolder}/test/index.ts",
+            "program": "${workspaceFolder}/test/hello_test.ts",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "test",
-                // "${workspaceFolder}/test/index.ts"
+                // "${workspaceFolder}/test/hello_test.ts"
             ],
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
             // "skipFiles": ["<node_internals>/**"],

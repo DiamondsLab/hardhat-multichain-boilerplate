@@ -6794,9 +6794,9 @@ readable-stream@~1.0.15:
     string_decoder "~0.10.x"
 
 readdirp@^4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-4.0.2.tgz#388fccb8b75665da3abffe2d8f8ed59fe74c230a"
-  integrity sha512-yDMz9g+VaZkqBYS/ozoBJwaBhTbZo3UNYQHNRw1D3UFQB8oHB4uS/tAODO+ZLjGWmUbKnIlOWO+aaIiAxrUWHA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/readdirp/-/readdirp-4.1.1.tgz#bd115327129672dc47f87408f05df9bd9ca3ef55"
+  integrity sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw==
 
 readdirp@~3.6.0:
   version "3.6.0"
@@ -8289,9 +8289,9 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 viem@^2.22.5:
-  version "2.22.5"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.22.5.tgz#930846b41747cc9815257f4a009d2f8c00e02567"
-  integrity sha512-rked1t/qPQAFNTLoFU18/OCv5KdbIZPwAwlY2X7dtH8unt28kccN6RBrjEjhNrY6wQlbO4phGwslNUzd8a2faw==
+  version "2.22.7"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.22.7.tgz#70b92859a3401fa056f86a13c8d2befffde8bb2f"
+  integrity sha512-heNQKOqpgAhdvu5xBAgWCqNVDkC6FfQyQ63+JVSUomOzmnbHAO1FKf4/JRe/s1McU1F4HkgjytOunQS9mbBD2g==
   dependencies:
     "@noble/curves" "1.7.0"
     "@noble/hashes" "1.6.1"
