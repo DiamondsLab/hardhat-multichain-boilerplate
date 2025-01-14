@@ -4,6 +4,7 @@ import "@typechain/hardhat";
 import * as dotenv from 'dotenv';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import exp from 'constants';
 
 dotenv.config();
 
@@ -29,6 +30,8 @@ const {
 // Exported constants for reusability in other parts of the project (e.g., testing scripts)
 export const ethUrl: string = ETHEREUM_PROVIDER_URL || ""; // Ethereum RPC URL
 export const polyUrl: string = POLYGON_PROVIDER_URL || ""; // Polygon RPC URL
+export const amoyUrl: string = AMOY_PROVIDER_URL || ""; // Amoy RPC URL
+export const sepoliaUrl: string = SEPOLIA_PROVIDER_URL || ""; // Sepolia RPC URL
 
 // Set the default chain ID for the Hardhat network
 // Uses `HH_CHAIN_ID` from the environment or defaults to `31337` (Hardhat's default local chain ID)
@@ -48,13 +51,15 @@ const config = {
     // Sepolia Testnet configuration
     sepolia: {
       url: SEPOLIA_PROVIDER_URL, // RPC URL for Sepolia
-      chainId: 4,               // Chain ID for Sepolia
+      chainId: 11155111,               // Chain ID for Sepolia
+      blocknumber: 7200064,                  // Block number to fork from
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
     },
     // Amoy Testnet configuration
     amoy: {
       url: AMOY_PROVIDER_URL, // RPC URL for Amoy
-      chainId: 80001,           // Chain ID for Amoy
+      chainId: 80002,           // Chain ID for Amoy
+      blocknumber: 15975574,         // Block number to fork from
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
     },
   },
@@ -78,11 +83,13 @@ task(
   "Sets the name of the fork, so it's visible in deployment scripts" // Task description
 )
   .addParam('n', 'name of forked network') // Adds a parameter `n` for specifying the network name
+  .addParam('b', 'block number to fork from') // Adds a parameter `b` for specifying the block number
   .setAction(async (taskArgs, hre) => {
     // Accesses the Hardhat runtime environment (`hre`) to modify runtime configurations
     hre.forkName = taskArgs.n; // Sets the fork name based on the parameter
+    const forkBlockNumber = taskArgs.b; // Sets the block number to fork from based on the parameter
 
-    let url;  // RPC URL for the forked network
+    let url; // RPC URL for the forked network
     let port; // Port on which the forked network will run
 
     // Determines the RPC URL and port based on the specified fork name
@@ -91,8 +98,15 @@ task(
       port = 8545;  // Default port for Ethereum fork
     } else if (hre.forkName === 'polygon') {
       url = polyUrl; // Use Polygon RPC URL
-      port = 8546;   // Default port for Polygon fork
-    } else {
+      port = 8546; // Default port for Polygon fork
+    } else if (hre.forkName === 'sepolia') {
+      url = sepoliaUrl; // Use Sepolia RPC URL
+      port = 8547; // Default port for Sepolia fork
+    } else if (hre.forkName === 'amoy') {
+      url = amoyUrl; // Use Amoy RPC URL
+      port = 8548; // Default port for Amoy fork
+    }
+    else {
       throw 'Incorrect fork name!'; // Throws an error if the fork name is invalid
     }
 
@@ -100,6 +114,7 @@ task(
     await hre.run('node', {
       fork: url,  // Specifies the network to fork
       port: port, // Specifies the port for the forked node
+      blockNumber: forkBlockNumber, // Specifies the block number to fork from
     });
   });
 

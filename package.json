@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "friendly-msg": "mkdir -p logs && echo 'Starting deployment. Check logs for details :)'",
-    "fork:ethereum": "yarn friendly-msg && HH_CHAIN_ID=69 yarn hardhat customFork --n ethereum > ./logs/ethereum-fork-node.log",
-    "fork:polygon": "yarn friendly-msg && HH_CHAIN_ID=420 yarn hardhat customFork --n polygon > ./logs/polygon-fork-node.log",
+    "fork:ethereum": "yarn friendly-msg && HH_CHAIN_ID=69 yarn hardhat customFork --n ethereum --b 21274700 --show-stack-traces > ./logs/ethereum-fork-node.log",
+    "fork:polygon": "yarn friendly-msg && HH_CHAIN_ID=420 yarn hardhat customFork --n polygon --b 66692500 --show-stack-traces > ./logs/polygon-fork-node.log",
     "fork:both": "concurrently -n ethereum,polygon \"yarn fork:ethereum\" \"yarn fork:polygon\"",
     "deploy": "yarn hardhat deploy",
     "clean": "yarn hardhat clean",
@@ -31,7 +31,7 @@
     "ethereum-waffle": "^3.4.0",
     "hardhat": "^2.6.1",
     "hardhat-deploy": "^0.9.0",
-    "ts-node": "^10.2.1",
+    "ts-node": "10.1.0",
     "typechain": "^8.3.2",
     "typescript": "^4.3.5"
   },
