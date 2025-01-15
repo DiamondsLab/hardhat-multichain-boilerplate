@@ -5,6 +5,15 @@ import * as dotenv from 'dotenv';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import exp from 'constants';
+import { debug } from 'debug';
+
+declare global {
+  // eslint-disable-next-line no-var
+  var debuglog: debug.Debugger;
+}
+
+global.debuglog = debug('GNUSUnitTest:log');
+global.debuglog.color = '158';
 
 dotenv.config();
 
@@ -36,6 +45,7 @@ export const sepoliaUrl: string = SEPOLIA_PROVIDER_URL || ""; // Sepolia RPC URL
 // Set the default chain ID for the Hardhat network
 // Uses `HH_CHAIN_ID` from the environment or defaults to `31337` (Hardhat's default local chain ID)
 const MOCK_CHAIN_ID = HH_CHAIN_ID ? parseInt(HH_CHAIN_ID) : 31337;
+console.log(`Using chain ID: ${MOCK_CHAIN_ID}`);
 
 // Main Hardhat configuration object
 const config = {
@@ -49,17 +59,16 @@ const config = {
       chainId: MOCK_CHAIN_ID, // Sets the chain ID for the Hardhat network
     },
     // Sepolia Testnet configuration
-    sepolia: {
-      url: SEPOLIA_PROVIDER_URL, // RPC URL for Sepolia
-      chainId: 11155111,               // Chain ID for Sepolia
-      blocknumber: 7200064,                  // Block number to fork from
+    sepoliaHardhat: {
+      url: "http://127.0.0.1:8547", // RPC URL for Sepolia
+      chainId: 690,                            // Block number to fork from
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
     },
     // Amoy Testnet configuration
-    amoy: {
-      url: AMOY_PROVIDER_URL, // RPC URL for Amoy
-      chainId: 80002,           // Chain ID for Amoy
-      blocknumber: 15975574,         // Block number to fork from
+    amoyHardhat: {
+      url: "http://127.0.0.1:8548", // RPC URL for Amoy
+      chainId: 420,           // Chain ID for Amoy
+      // blocknumber: 15975574,         // Block number to fork from
       accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
     },
   },

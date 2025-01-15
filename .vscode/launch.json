@@ -25,13 +25,12 @@
             "console": "integratedTerminal",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "program": "${workspaceFolder}/test/multichain_test.ts",
-            "runtimeExecutable": "npm",
+            "env": {"DEBUG" : "hardhat*"},
+            "runtimeExecutable": "yarn",
             "runtimeArgs": [
                 "test",
-                // "${workspaceFolder}/test/multichain_test.ts"
             ],
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
-            // "skipFiles": ["<node_internals>/**"],
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
             "sourceMaps": true,
