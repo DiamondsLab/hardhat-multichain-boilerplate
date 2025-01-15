@@ -16,24 +16,24 @@ contract Multichain {
     /// @return chainName A human-readable string representing the blockchain name.
     function getChain() public view returns (uint, string memory) {
         uint chainId = block.chainid; 
-        // The `block.chainid` is a global variable introduced in Solidity 0.5.0 
-        // that provides the current blockchain's unique chain ID.
+        // The `block.chainid` used here is being added to the fork command
+        // that provides the current blockchain's unique chain ID for testing.
         
-        if (chainId == 4) {
-            // Sepolia Testnet: Chain ID 4
-            return (chainId, "sepolia");
-        }
-        else if (chainId == 80001) {
-            // Amoy Testnet: Chain ID 80001
-            return (chainId, "amoy");
-        }
-        else if (chainId == 1) {
-            // Ethereum Mainnet: Chain ID 1
+        if (chainId == 69) {
+            // lcoal version of Ethereum Mainnet: Chain ID 69
             return (chainId, "ethereum");
         }
-        else if (chainId == 137) {
-            // Polygon Mainnet: Chain ID 137
-            return (chainId, "polygon");
+        else if (chainId ==42) {
+            // Local version of Polygon Mainnet: Chain ID 42
+            return (chainId, "local-polygon");
+        }
+        else if (chainId == 11169111) {
+            // local Sepolia Chain: Chain ID 690
+            return (chainId, "local-sepolia");
+        }
+        else if (chainId == 80042) {
+            // local Amoy Chain: Chain ID 691
+            return (chainId, "local-amoy");
         }
         else {
             // Default case for unknown chain IDs

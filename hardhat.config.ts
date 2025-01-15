@@ -58,19 +58,6 @@ const config = {
     hardhat: {
       chainId: MOCK_CHAIN_ID, // Sets the chain ID for the Hardhat network
     },
-    // Sepolia Testnet configuration
-    sepoliaHardhat: {
-      url: "http://127.0.0.1:8547", // RPC URL for Sepolia
-      chainId: 690,                            // Block number to fork from
-      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
-    },
-    // Amoy Testnet configuration
-    amoyHardhat: {
-      url: "http://127.0.0.1:8548", // RPC URL for Amoy
-      chainId: 420,           // Chain ID for Amoy
-      // blocknumber: 15975574,         // Block number to fork from
-      accounts: [`0x${DEPLOYER_PRIVATE_KEY}`], // Deployer account private key
-    },
   },
 
   // Named accounts allow easier referencing of frequently used accounts
