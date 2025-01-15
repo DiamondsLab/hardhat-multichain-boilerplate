@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug Unit Tests",
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js"],
-            "program": "${workspaceFolder}/test/hellow_test.ts",
+            "program": "${workspaceFolder}/test/multichain_test.ts",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
@@ -24,11 +24,30 @@
             "request": "launch",
             "console": "integratedTerminal",
             "preLaunchTask": "tsc: build - tsconfig.json",
-            "program": "${workspaceFolder}/test/hello_test.ts",
+            "program": "${workspaceFolder}/test/multichain_test.ts",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "test",
-                // "${workspaceFolder}/test/hello_test.ts"
+                // "${workspaceFolder}/test/multichain_test.ts"
+            ],
+            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
+            // "skipFiles": ["<node_internals>/**"],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
+            "sourceMaps": true,
+            "smartStep": true,
+        },
+        {
+            "name": "Hardhat Fork",
+            "type": "node",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "program": "${workspaceFolder}/hardhat.config.ts",
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "fork:ethereum",
+                // "${workspaceFolder}/test/multichain_test.ts"
             ],
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
             // "skipFiles": ["<node_internals>/**"],

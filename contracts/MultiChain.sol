@@ -5,10 +5,10 @@ pragma solidity ^0.8.0;
 // The Solidity version is specified as 0.8.0 or higher.
 // This version introduces improved safety features, including checked arithmetic.
 
-/// @title HelloWorlds Contract
+/// @title Multichain Contract
 /// @notice A simple contract to demonstrate the retrieval of chain-specific data.
 /// @dev Uses the `block.chainid` global variable to fetch the chain ID.
-contract HelloWorlds {
+contract Multichain {
     
     /// @notice Returns the chain ID and its corresponding name.
     /// @dev The `block.chainid` global variable retrieves the current chain ID of the network.

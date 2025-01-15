@@ -5,12 +5,12 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types/runtime';
 // Define the deployment function
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     try {
-        // Deploy the "HelloWorlds" contract using the utility function
+        // Deploy the "Multichain" contract using the utility function
         // Passes the runtime environment and the contract name to `deployContract`
-        const res: DeployResult = await deployContract(hre, "HelloWorlds", []);
+        const res: DeployResult = await deployContract(hre, "Multichain", []);
         
         // Logs the deployment details, including the chain ID and deployed contract address
-        console.log(`HelloWorlds on ChainID ${hre.network.config.chainId} deployed to ${res.address}`);
+        console.log(`Multichain on ChainID ${hre.network.config.chainId} deployed to ${res.address}`);
     } catch (error) {
         // Error handling for deployment failures
         // Currently, this is empty but can be enhanced with logging or retries.

@@ -115,6 +115,7 @@ task(
       fork: url,  // Specifies the network to fork
       port: port, // Specifies the port for the forked node
       blockNumber: forkBlockNumber, // Specifies the block number to fork from
+      chainId: MOCK_CHAIN_ID, // Sets the chain ID for the forked network
     });
   });
 

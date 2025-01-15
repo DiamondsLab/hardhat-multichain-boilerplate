@@ -5,8 +5,8 @@ This project demonstrates a **Hardhat-based crosschain development environment**
 This repo is set up with the following: 
 1) Ethereum Mainnet (forked to run locally)
 2) Polygon Mainnet (forked to run locally)
-3) Sepolia Testnet 
-4) Amoy Testnet
+3) Sepolia Testnet (forked to run locally)
+4) Amoy Testnet (forked to run locally)
 
 What's here currently is a test contract that retrieves its chainId (to prepare for deploying the same contract on multiple networks). It has a set of small unit tests to ensure you can deploy it to mulitple EVMs. 
 
@@ -20,13 +20,13 @@ In addition, there are configurations to be able to run and test on two networks
 - `yarn fork:ethereum` - runs fork of Ethereum mainnet
 - `yarn fork:polygon` - runs fork of Polygon mainnet
 - `yarn fork:both` - runs both local forks
-- `yarn deploy` - deploys the `HelloWorlds` contract
+- `yarn deploy` - deploys the `Multichain` contract
 - `yarn clean` - removes old build
 - `yarn compile` - compiles contracts
 - `yarn test` - runs tests in `./test`
 
 ## 1. **Purpose and Configuration for Crosschain Testing**
-   - The goal is to simulate multiple chains locally to develop and test **crosschain smart contracts**. This includes:
+   - The goal is to simulate multiple chains locally to develop and test **crosschain smart contracts** interaction. This includes deploying contracts on different networks, verifying their behavior and monitoring them for events which triggers other events.:
      - **Ethereum Mainnet**
      - **Polygon Mainnet**
      - **Sepolia Testnet**
@@ -53,8 +53,8 @@ In addition, there are configurations to be able to run and test on two networks
 
 ---
 
-## 3. **Smart Contract: `HelloWorlds`**
-   - Located in `contracts/HelloWorlds.sol`.
+## 3. **Smart Contract: `Multichain`**
+   - Located in `contracts/Multichain.sol`.
    - Provides the `getChain` function, which:
      - Returns the chain ID using `block.chainid`.
      - Maps the chain ID to a human-readable chain name (e.g., Ethereum, Polygon, etc.).
@@ -62,8 +62,8 @@ In addition, there are configurations to be able to run and test on two networks
 
 ---
 
-## 4. **Deployment: `deploy/hello_deploy.ts`**
-   - Deploys the `HelloWorlds` contract on the configured chain(s).
+## 4. **Deployment: `deploy/multichain_deploy.ts`**
+   - Deploys the `Multichain` contract on the configured chain(s).
    - Uses the utility function `deployContract` (`utils/deploy.ts`), which abstracts Hardhat's deployment process:
      - Fetches the deployment account (`deployer`) from the named accounts in `hardhat.config.ts`.
      - Logs the deployment process for better debugging and auditing.
@@ -71,13 +71,13 @@ In addition, there are configurations to be able to run and test on two networks
 ---
 
 ## 5. **Testing Across Multiple Chains**
-   - Tests are in `test/hello_test.ts` and utilize:
+   - Tests are in `test/multichain_test.ts` and utilize:
      - `MockProvider` from `ethereum-waffle` to simulate blockchain providers.
      - Forked URLs (`ethUrl`, `polyUrl`) from `hardhat.config.ts` for specific chain simulations.
      - Contract ABI and bytecode from the compiled artifacts.
 
    - Example Tests:
-     - Deploys the `HelloWorlds` contract to each simulated chain.
+     - Deploys the `Multichain` contract to each simulated chain.
      - Calls the `getChain` function to verify the returned `chainId` and name:
        - **Ethereum Mainnet**: Chain ID `1`.
        - **Polygon Mainnet**: Chain ID `137`.
