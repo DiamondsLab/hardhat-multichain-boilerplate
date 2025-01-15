@@ -11,3 +11,5 @@ typechain-types/
 deployments/
 dist/
 notes/
+log/
+scripts

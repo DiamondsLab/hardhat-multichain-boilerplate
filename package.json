@@ -15,7 +15,7 @@
     "clean": "yarn hardhat clean",
     "compile": "yarn hardhat compile",
     "test": "yarn hardhat test",
-    "clear": "ts-node scripts/clearlogs.ts"
+    "clear": "tsc scripts/clearlogs.ts"
   },
   "keywords": [],
   "author": "Dan Hepworth <dhepworth@aktarytech.com>",
