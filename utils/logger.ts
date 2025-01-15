@@ -11,7 +11,7 @@ export const createForkLogger = (forkName: string) => {
     ),
     transports: [
       new transports.File({
-        filename: `./log/${forkName}-node.log`,
+        filename: `./logs/${forkName}-node.log`,
         level: "info",
         options: { flags: "w" }, // Clears the file each time the logger is initialized
       }),
