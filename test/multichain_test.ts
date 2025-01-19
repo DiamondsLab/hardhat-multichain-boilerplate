@@ -11,7 +11,7 @@ describe("Multichain Contract Tests", function () {
     // { name: "local-ethereum", chainId: 69, url: process.env.ETHEREUM_PROVIDER_URL, port: 8545, blockNumber: 21625925 },
     // { name: "local-polygon", chainId: 42, url: process.env.POLYGON_PROVIDER_URL, port: 8546, blockNumber: 66703587 },
     { name: "local-sepolia", chainId: 11169111, url: process.env.SEPOLIA_PROVIDER_URL, port: 8547, blockNumber: 7200064 },
-    { name: "local-amoy", chainId: 80042, url: process.env.AMOY_PROVIDER_URL, port: 8548, blockNumber: 15975574 },
+    { name: "local-amoy", chainId: 80042, url: process.env.AMOY_PROVIDER_URL, port: 8548, blockNumber: 16995897 },
   ];
 
   const deployerAddress = "0x910bAa33DeB0D614Aa9d80e38b7f0BF87549c2fC";
