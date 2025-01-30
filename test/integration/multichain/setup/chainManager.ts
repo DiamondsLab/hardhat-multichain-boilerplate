@@ -1,16 +1,15 @@
 import { JsonRpcProvider } from '@ethersproject/providers';
 import dotenv from 'dotenv';
-import { ethers } from 'hardhat';
+import { ethers, network } from 'hardhat';
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
-import { waitForNetwork } from '../utils/network-utils';
-import { createForkLogger } from '../utils/logger';
+import { waitForNetwork } from '../utils/network-utils.orig';
+import { createForkLogger } from '../utils/logger.orig';
 
 dotenv.config();
 
 type ChainConfig = {
   name: string;
   rpcUrl: string;
-  forkPort: number;
   blockNumber?: number;
   chainId?: number;
 };
@@ -18,9 +17,9 @@ type ChainConfig = {
 class ChainManager {
   private static instances: Map<string, JsonRpcProvider> = new Map();
   private static processes: Map<string, ChildProcessWithoutNullStreams> = new Map();
-
+  private static forkPort = 8546;
+  
   static async setupChains(chains: string[]): Promise<Map<string, JsonRpcProvider>> {
-    // ToDo: Implement a more thorough check to ensure that a specific chain isn't already running an return the instance if it is.
     if (this.instances.size > 0) return this.instances;
 
     const processes: Record<string, ChildProcessWithoutNullStreams> = {};
@@ -44,7 +43,7 @@ class ChainManager {
             '--fork',
             chainConfig.rpcUrl,
             '--port',
-            chainConfig.forkPort.toString(),
+            this.forkPort.toString(),
             ...(chainConfig.blockNumber
               ? ['--fork-block-number', chainConfig.blockNumber.toString()]
               : []),
@@ -56,7 +55,7 @@ class ChainManager {
             },
           }
         );
-
+        
         // Redirect logs to custom logger
         child.stdout?.on('data', (data) => logger.info(data.toString()));
         child.stderr?.on('data', (data) => logger.error(data.toString()));
@@ -65,14 +64,18 @@ class ChainManager {
         child.on("info", (err) => logger.info(`Log starting fork ${chainConfig.name}: ${err.message}`));
 
         processes[chainName] = child;
-        rpcUrls[chainName] = `http://127.0.0.1:${chainConfig.forkPort}`;
-
+        rpcUrls[chainName] = `http://127.0.0.1:${this.forkPort.toString()}`;
+        
+        // Increment the port for the next chain
+        // Note: This increment is done at this point because the Promise.all() call is parallel
+        // and we need to ensure the port is unique for each chain fork as the external call
+        // to waitForNetwork() allows the control logic to proceed with the next chain. 
+        this.forkPort++;
+        
         // Ensure the node is ready before proceeding
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-
         try {
           await waitForNetwork(rpcUrls[chainName], 100000);
-          logger.info(`Network at ${rpcUrls[chainName]} is ready.`);
+          logger.info(`Local ${chainName} network is ready at ${rpcUrls[chainName]}.`);
         } catch (err) {
           if (err instanceof Error) {
             logger.error(`Network validation failed for ${chainName}: ${err.message}`);
@@ -84,6 +87,9 @@ class ChainManager {
 
         // Initialize and store the provider
         const provider = new ethers.providers.JsonRpcProvider(rpcUrls[chainName]);
+        // ethers.provider = provider;
+        const blockNumber = await provider.getBlockNumber();
+        const chainId = (await provider.getNetwork()).chainId;
         this.instances.set(chainName, provider);
         this.processes.set(chainName, child);
       })
@@ -112,24 +118,18 @@ class ChainManager {
   }
 
   private static getChainConfig(chainName: string): ChainConfig | null {
+    // convert the chain config values to constants based on the chain name
+    const configBlockNumber = chainName.toUpperCase() + '_BLOCK_NUMBER';
+    const configChainId = chainName.toUpperCase() + '_MOCK_CHAIN_ID';
+    const configRpcUrl = chainName.toUpperCase() + '_RPC';
     const chainConfigs: Record<string, ChainConfig> = {
-      amoy: {
-        name: 'amoy',
-        rpcUrl: process.env.AMOY_RPC_URL!,
-        forkPort: 8546,
-        blockNumber: process.env.AMOY_BLOCK_NUMBER
-          ? parseInt(process.env.AMOY_BLOCK_NUMBER)
-          : undefined,
-        chainId: 80002,
-      },
-      sepolia: {
-        name: 'sepolia',
-        rpcUrl: process.env.SEPOLIA_RPC_URL!,
-        forkPort: 8547,
-        blockNumber: process.env.SEPOLIA_BLOCK_NUMBER
-          ? parseInt(process.env.SEPOLIA_BLOCK_NUMBER)
-          : undefined,
-        chainId: 11155111,
+      [chainName]: {
+      name: chainName,
+      rpcUrl: process.env[configRpcUrl]!,
+      blockNumber: process.env[configBlockNumber]
+        ? parseInt(process.env[configBlockNumber]!)
+        : undefined,
+      chainId: process.env[configChainId] !== undefined ? parseInt(process.env[configChainId]!) : undefined,
       },
     };
 

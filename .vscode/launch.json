@@ -25,7 +25,7 @@
             "console": "integratedTerminal",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "program": "${workspaceFolder}/test/integration/multichain/tests/exampleTest1.ts",
-            "env": {"DEBUG" : "hardhat*"},
+            "env": {"DEBUG" : "hardhat*", "CHAINS" : "sepolia"},
             "runtimeExecutable": "yarn",
             "runtimeArgs": [
                 "test",
