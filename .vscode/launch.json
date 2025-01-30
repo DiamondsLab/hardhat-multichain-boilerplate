@@ -19,7 +19,25 @@
             "trace": true
         }, 
         {
-            "name": "Hardhat test",
+            "name": "Multichain Scaffold test",
+            "type": "node",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "program": "${workspaceFolder}/test/integration/multichain/tests/exampleTest1.ts",
+            "env": {"DEBUG" : "hardhat*"},
+            "runtimeExecutable": "yarn",
+            "runtimeArgs": [
+                "test",
+            ],
+            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
+            "sourceMaps": true,
+            "smartStep": true,
+        },
+        {
+            "name": "Multichain AIO File test",
             "type": "node",
             "request": "launch",
             "console": "integratedTerminal",
@@ -37,7 +55,7 @@
             "smartStep": true,
         },
         {
-            "name": "Hardhat Fork",
+            "name": "Yarn Fork test",
             "type": "node",
             "request": "launch",
             "console": "integratedTerminal",
@@ -46,7 +64,6 @@
             "runtimeExecutable": "yarn",
             "runtimeArgs": [
                 "fork:ethereum",
-                // "${workspaceFolder}/test/multichain_test.ts"
             ],
             "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
             // "skipFiles": ["<node_internals>/**"],
@@ -55,42 +72,5 @@
             "sourceMaps": true,
             "smartStep": true,
         },
-        {
-            "name": "Debug hardhat ts script",
-            "type": "node",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run-hardhat",
-                "${file}"
-            ]
-        },
-        {
-            "name": "Debug harthat ts test",
-            "type": "node",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "test",
-                "${file}"
-            ]
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${file}",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
-            // "stopOnEntry": true,
-            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/test/**/*.ts"]
-        }
     ]
 }
