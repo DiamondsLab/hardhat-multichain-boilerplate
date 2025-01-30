@@ -20,7 +20,7 @@ describe("Multichain Contract Tests", function () {
   let processes: { [chain: string]: ChildProcessWithoutNullStreams } = {};
   let rpcUrl: { [key: string]: string } = {};
 
-  network.config.chainId = 11169111;
+  // network.config.chainId = 11169111;
   this.timeout(0); // Extend timeout to 5 minutes
   before(async function () {
 
