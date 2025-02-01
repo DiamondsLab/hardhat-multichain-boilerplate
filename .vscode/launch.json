@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Hardhat Multichain Task",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/hardhat/internal/cli/cli.js",
+            "args": ["run-multichain", "--multichain", "sepolia,amoy"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "autoAttachChildProcesses": true,
+            "internalConsoleOptions": "neverOpen"   
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Debug Unit Tests",

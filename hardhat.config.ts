@@ -6,6 +6,7 @@ import { task, HardhatUserConfig } from 'hardhat/config';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import exp from 'constants';
 import { debug } from 'debug';
+import 'hardhat-multichain';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -57,6 +58,27 @@ const config = {
     // Hardhat's built-in local blockchain network
     hardhat: {
       chainId: MOCK_CHAIN_ID, // Sets the chain ID for the Hardhat network
+      11111137: {
+        hardforkHistory: {
+          london: 23850000
+        }
+      },
+      80002: {
+        hardforkHistory: {
+          london: 10000000,
+        }
+      },
+      11111169: {
+        hardforkHistory: {
+          london: 23850000
+        }
+      },
+      11180002: {
+        hardforkHistory: {
+          berlin: 0,
+          london: 10000000,
+        }
+      },
     },
   },
 
