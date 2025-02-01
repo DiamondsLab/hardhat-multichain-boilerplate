@@ -2,8 +2,8 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import dotenv from 'dotenv';
 import { ethers, network } from 'hardhat';
 import { spawn, ChildProcessWithoutNullStreams } from "child_process";
-import { waitForNetwork } from '../utils/network-utils.orig';
-import { createForkLogger } from '../utils/logger.orig';
+import { waitForNetwork } from '../utils/network-utils';
+import { createForkLogger } from '../utils/logger';
 
 dotenv.config();
 
