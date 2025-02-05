@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "resolveJsonModule": true,
-    "target": "es2018",
+    "target": "es2020",
     "module": "commonjs",
     "strict": true,
     "checkJs": false,
@@ -10,6 +10,6 @@
     "esModuleInterop": true,
     "allowJs": true,
   },
-  "include": ["./scripts", "./test", "./typechain-types", "./types", "./utils", "./deploy"],
+  "include": ["./scripts", "test-orig", "./typechain-types", "./types", "./utils", "./deploy", "test/multichain_plugin.test.ts"],
   "files": ["./hardhat.config.ts"]
 }

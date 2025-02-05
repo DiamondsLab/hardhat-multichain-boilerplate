@@ -15,7 +15,8 @@
     "clean": "yarn hardhat clean",
     "compile": "yarn hardhat compile",
     "test": "yarn hardhat test",
-    "clear": "tsc scripts/clearlogs.ts"
+    "clear": "tsc scripts/clearlogs.ts",
+    "test-multichain": "yarn hardhat test-multichain"
   },
   "keywords": [],
   "author": "Dan Hepworth <dhepworth@aktarytech.com>",
@@ -28,6 +29,7 @@
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.1",
+    "@types/sinon-chai": "^4.0.0",
     "chai": "^4.3.4",
     "concurrently": "^6.4.0",
     "dotenv": "^16.4.7",
