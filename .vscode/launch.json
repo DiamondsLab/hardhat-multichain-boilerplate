@@ -13,42 +13,31 @@
             "internalConsoleOptions": "neverOpen"   
         },
         {
-            "name": "2Multichain Plugin Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "program": "${workspaceFolder}/node_modules/.bin/hardhat",
-            "args": [
-                "test-multichain",
-                "--chains", "sepolia",
-                // "--show-stack-traces",
-                // "--", "./test/multichain_plugin.test.ts"
-            ],
-            "runtimeExecutable": "yarn",
-            "sourceMaps": true,
-            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
-            "smartStep": true,
-            "autoAttachChildProcesses": true,
-            "internalConsoleOptions": "neverOpen"
-        },
-        {
             "name": "Multichain Plugin Test",
             "type": "node",
             "request": "launch",
             "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            // "program": "${workspaceFolder}/test/multichain_plugin.test.ts",
-            // "args": ["test-multichain", "--chains", "sepolia"],
-            "runtimeExecutable": "yarn",
-            "runtimeArgs": [
-                "hardhat", "test-multichain", "--chains", "sepolia"],
-            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
-            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
+            // "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "program": "${workspaceFolder}/node_modules/hardhat/internal/cli/cli.js",
+            "args": [ "test-multichain", "--chains", "sepolia,amoy", "--logs", "logs"],
+            "runtimeArgs": [ "--preserve-symlinks" ],
+            "skipFiles": [
+                "<node_internals>/**", 
+                // "${workspaceFolder}/node_modules/**/*.js", 
+                "${workspaceFolder}/dist/**/*.js",
+                "!${workspaceFolder}/node_modules/hardhat-multichain/**/*.ts",
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/dist/**/*.js", 
+                "${workspaceFolder}/src/*.ts",
+                "${workspaceFolder}/test/*.ts",
+                "${workspaceFolder}/nod_modules/hardhat-multichain/dist/**/*.js",
+                "${workspaceFolder}/node_modules/hardhat-multichain/**/*.ts",
+                "${workspaceFolder}/packages/hardhat-multichain/src/**/*.ts",
+            ],
             "sourceMaps": true,
             "smartStep": true,
-            "autoAttachChildProcesses": true,
-            "internalConsoleOptions": "neverOpen"  
+            "console": "integratedTerminal",
         },
         {
             "type": "node",

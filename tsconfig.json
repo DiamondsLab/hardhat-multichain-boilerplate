@@ -1,15 +1,22 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "target": "es2020",
+    "target": "es2018",
     "module": "commonjs",
     "strict": true,
-    "checkJs": false,
-    "outDir": "./dist",
-    "typeRoots": ["node_modules/@types", "./types"],
-    "esModuleInterop": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    // "sourceMap": true,
     "allowJs": true,
+    "checkJs": false,
+    "outDir": "dist",
+    // "typeRoots": ["node_modules/@types", "./types"],
+    "rootDirs": ["./src", "./test"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
   },
-  "include": ["./scripts", "test-orig", "./typechain-types", "./types", "./utils", "./deploy", "test/multichain_plugin.test.ts"],
+  "include": ["./scripts", "./typechain-types", "./types", "./utils", "./deploy", "./test", "src/**/*.ts"],
+  // "include": ["./scripts", "./test", "./typechain"],
   "files": ["./hardhat.config.ts"]
 }
+
+  
