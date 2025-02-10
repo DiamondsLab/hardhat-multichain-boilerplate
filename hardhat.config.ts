@@ -60,7 +60,6 @@ export const sepoliaBlock: number = parseInt(SEPOLIA_BLOCK || "0"); // Sepolia b
 // Uses `HH_CHAIN_ID` from the environment or defaults to `31337` (Hardhat's default local chain ID)
 const MOCK_CHAIN_ID = HH_CHAIN_ID ? parseInt(HH_CHAIN_ID) : 31337;
 console.log(`Using chain ID: ${MOCK_CHAIN_ID}`);
-
 // Main Hardhat configuration object
 const config = {
   // Specifies the Solidity version used for compiling contracts
@@ -79,12 +78,12 @@ const config = {
       sepolia: {
         rpcUrl: sepoliaUrl,
         blockNumber: sepoliaBlock,
-        chainId: 11169111 
+        chainId: 11155111,
       }, 
       amoy: {
         rpcUrl: amoyUrl,
         blockNumber: amoyBlock,
-        chainId: 11180002
+        chainId: 80002
       },
     }
   },
@@ -97,7 +96,6 @@ const config = {
     // Hardhat's built-in local blockchain network
     hardhat: {
       chainId: MOCK_CHAIN_ID, // Sets the chain ID for the Hardhat network
-      // Sets the Amoy hardfork history which is required for hardhat "unknown" networks
       80002: {
         hardforkHistory: {
           london: 10000000,

@@ -19,7 +19,7 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             // "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "program": "${workspaceFolder}/node_modules/hardhat/internal/cli/cli.js",
-            "args": [ "test-multichain", "--chains", "sepolia,amoy", "--logs", "logs"],
+            "args": [ "test-multichain", "test/multichain_plugin.test.ts",  "--chains", "sepolia,amoy", "--logs", "logs"],
             "runtimeArgs": [ "--preserve-symlinks" ],
             "skipFiles": [
                 "<node_internals>/**", 

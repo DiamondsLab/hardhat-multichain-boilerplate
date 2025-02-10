@@ -34,6 +34,7 @@ describe("Hardhat Multi-Fork Tests", function () {
       const chainId = await (await ethersProvider.getNetwork()).chainId.toString();
       console.log(`${chainName} chain ID:, ${chainId}`);
       const configChainId = hre.config.chainManager?.chains?.[chainName]?.chainId?.toString();
+      console.log(`${chainName} config chain ID:, ${configChainId}`);
       expect(chainId).to.be.eq(configChainId);
     }
   });
