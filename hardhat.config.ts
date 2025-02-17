@@ -7,6 +7,9 @@ import * as dotenv from 'dotenv';
 // import exp from 'constants';
 import { debug } from 'debug';
 import 'hardhat-multichain';
+import { Chain } from 'viem/_types/actions/public/multicall';
+import ChainManager from 'hardhat-multichain/dist/src/chainManager';
+import { JsonRpcProvider } from '@ethersproject/providers';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -56,6 +59,17 @@ export const polyBlock: number = parseInt(POLY_BLOCK || "0"); // Polygon block n
 export const amoyBlock: number = parseInt(AMOY_BLOCK || "0"); // Amoy block number
 export const sepoliaBlock: number = parseInt(SEPOLIA_BLOCK || "0"); // Sepolia block number
 
+
+let multichainTestHardhat = '';
+// If this is a test-multichain task then we parse the --chains argument to get the chain names
+if (process.argv.includes('test-multichain') && process.argv.includes('--chains')) {
+  const chains = process.argv[process.argv.indexOf('--chains') + 1].split(',');
+  if (chains.includes('hardhat') || chains.includes('localhost') || !chains) {
+    multichainTestHardhat = 'http://localhost:8545';
+  }
+}
+export const multichainHardhat = multichainTestHardhat;
+
 // Set the default chain ID for the Hardhat network
 // Uses `HH_CHAIN_ID` from the environment or defaults to `31337` (Hardhat's default local chain ID)
 const MOCK_CHAIN_ID = HH_CHAIN_ID ? parseInt(HH_CHAIN_ID) : 31337;
@@ -85,6 +99,9 @@ const config = {
         blockNumber: amoyBlock,
         chainId: 80002
       },
+      hardhat: {
+        rpc: multichainHardhat,
+      }
     }
   },
   
