@@ -1,0 +1,20 @@
+{
+  "chainManager": {
+    "chains": {
+      "hardhat": {
+        "rpc": "http://localhost:8545",
+        "chainId": 31337,
+        "blockNumber": 0,
+        "timeout": 10000,
+        "retries": 1
+      },
+      "localhost": {
+        "rpc": "http://localhost:8545",
+        "chainId": 31337,
+        "blockNumber": 0,
+        "timeout": 10000,
+        "retries": 1
+      }
+    }
+  }
+}

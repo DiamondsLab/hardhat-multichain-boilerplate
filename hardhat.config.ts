@@ -1,15 +1,19 @@
 import '@nomiclabs/hardhat-waffle';
 import 'hardhat-deploy';
 import "@typechain/hardhat";
+import 'hardhat-multichain'; // This must come before the config declaration
 import * as dotenv from 'dotenv';
-// import { task, HardhatUserConfig } from 'hardhat/config';
-// import { HardhatRuntimeEnvironment } from 'hardhat/types';
-// import exp from 'constants';
+import { task, HardhatUserConfig } from 'hardhat/config';
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { debug } from 'debug';
-import 'hardhat-multichain';
-import { Chain } from 'viem/_types/actions/public/multicall';
-import ChainManager from 'hardhat-multichain/dist/src/chainManager';
 import { JsonRpcProvider } from '@ethersproject/providers';
+import { 
+  NetworkError, 
+  ConfigurationError, 
+  validateNetworkConfig, 
+  createLogger,
+  ProcessCleanup 
+} from './utils/error-handling';
 
 declare global {
   // eslint-disable-next-line no-var
@@ -75,7 +79,7 @@ export const multichainHardhat = multichainTestHardhat;
 const MOCK_CHAIN_ID = HH_CHAIN_ID ? parseInt(HH_CHAIN_ID) : 31337;
 console.log(`Using chain ID: ${MOCK_CHAIN_ID}`);
 // Main Hardhat configuration object
-const config = {
+const config: any = { // Using any for now to avoid type conflicts
   // Specifies the Solidity version used for compiling contracts
   solidity: '0.8.3',
   
@@ -113,11 +117,7 @@ const config = {
     // Hardhat's built-in local blockchain network
     hardhat: {
       chainId: MOCK_CHAIN_ID, // Sets the chain ID for the Hardhat network
-      80002: {
-        hardforkHistory: {
-          london: 10000000,
-        }
-      },
+      hardfork: "london", // Use London hardfork for better compatibility
     },
   },
 
@@ -136,51 +136,126 @@ const config = {
   mocha: {
     timeout: 0, // Disables Mocha's default timeout
   },
-
-// // Custom Hardhat task definition
-// // Task Name: `customFork`
-// // Description: Sets up a forked network for local testing with specific configurations
-// task(
-//   'customFork', // Task name
-//   "Sets the name of the fork, so it's visible in deployment scripts" // Task description
-// )
-//   .addParam('n', 'name of forked network') // Adds a parameter `n` for specifying the network name
-//   .addParam('b', 'block number to fork from') // Adds a parameter `b` for specifying the block number
-//   .setAction(async (taskArgs, hre) => {
-//     // Accesses the Hardhat runtime environment (`hre`) to modify runtime configurations
-//     hre.forkName = taskArgs.n; // Sets the fork name based on the parameter
-//     const forkBlockNumber = taskArgs.b; // Sets the block number to fork from based on the parameter
-
-//     let url; // RPC URL for the forked network
-//     let port; // Port on which the forked network will run
-
-//     // Determines the RPC URL and port based on the specified fork name
-//     if (hre.forkName === 'ethereum') {
-//       url = ethUrl; // Use Ethereum RPC URL
-//       port = 8545;  // Default port for Ethereum fork
-//     } else if (hre.forkName === 'polygon') {
-//       url = polyUrl; // Use Polygon RPC URL
-//       port = 8546; // Default port for Polygon fork
-//     } else if (hre.forkName === 'sepolia') {
-//       url = sepoliaUrl; // Use Sepolia RPC URL
-//       port = 8547; // Default port for Sepolia fork
-//     } else if (hre.forkName === 'amoy') {
-//       url = amoyUrl; // Use Amoy RPC URL
-//       port = 8548; // Default port for Amoy fork
-//     }
-//     else {
-//       throw 'Incorrect fork name!'; // Throws an error if the fork name is invalid
-//     }
-
-    // // Runs the Hardhat node with the specified forked network and port
-    // await hre.run('node', {
-    //   fork: url,  // Specifies the network to fork
-    //   port: port, // Specifies the port for the forked node
-    //   blockNumber: forkBlockNumber, // Specifies the block number to fork from
-    //   chainId: MOCK_CHAIN_ID, // Sets the chain ID for the forked network
-    // });
-  // });
 };
+
+// Custom Hardhat task definition
+// Task Name: `customFork`
+// Description: Sets up a forked network for local testing with specific configurations
+task(
+  'customFork', // Task name
+  "Sets the name of the fork, so it's visible in deployment scripts" // Task description
+)
+  .addParam('n', 'name of forked network') // Adds a parameter `n` for specifying the network name
+  .addParam('b', 'block number to fork from') // Adds a parameter `b` for specifying the block number
+  .setAction(async (taskArgs, hre: HardhatRuntimeEnvironment) => {
+    const logger = createLogger('customFork');
+    
+    try {
+      // Validate input parameters
+      if (!taskArgs.n || !taskArgs.b) {
+        throw new ConfigurationError('Both network name (-n) and block number (-b) are required');
+      }
+
+      // Setup cleanup handlers
+      ProcessCleanup.setupSignalHandlers();
+
+      // Accesses the Hardhat runtime environment (`hre`) to modify runtime configurations
+      (hre as any).forkName = taskArgs.n; // Sets the fork name based on the parameter
+      const forkBlockNumber = parseInt(taskArgs.b); // Sets the block number to fork from based on the parameter
+
+      if (isNaN(forkBlockNumber) || forkBlockNumber < 0) {
+        throw new ConfigurationError(`Invalid block number: ${taskArgs.b}. Must be a positive integer.`);
+      }
+
+      let url: string; // RPC URL for the forked network
+      let port: number; // Port on which the forked network will run
+      let chainId: number; // Chain ID for the forked network
+
+      // Determines the RPC URL and port based on the specified fork name
+      switch (taskArgs.n) {
+        case 'ethereum':
+          url = ethUrl; // Use Ethereum RPC URL
+          port = 8545;  // Default port for Ethereum fork
+          chainId = 1;
+          break;
+        case 'polygon':
+          url = polyUrl; // Use Polygon RPC URL
+          port = 8546; // Default port for Polygon fork
+          chainId = 137;
+          break;
+        case 'sepolia':
+          url = sepoliaUrl; // Use Sepolia RPC URL
+          port = 8547; // Default port for Sepolia fork
+          chainId = 11155111;
+          break;
+        case 'amoy':
+          url = amoyUrl; // Use Amoy RPC URL
+          port = 8548; // Default port for Amoy fork
+          chainId = 80002;
+          break;
+        default:
+          throw new ConfigurationError(
+            `Unsupported fork name: ${taskArgs.n}. Supported networks: ethereum, polygon, sepolia, amoy`
+          );
+      }
+
+      // Validate that the RPC URL is provided
+      if (!url) {
+        throw new ConfigurationError(
+          `RPC URL for ${taskArgs.n} is not configured. Please set the appropriate environment variable:\n` +
+          `- For ${taskArgs.n}: ${taskArgs.n.toUpperCase()}_RPC\n` +
+          'Check your .env file and ensure the variable is set with a valid provider URL.'
+        );
+      }
+
+      logger.info(`Starting ${taskArgs.n} fork on port ${port} at block ${forkBlockNumber}`);
+      logger.debug(`RPC URL: ${url}`);
+      logger.debug(`Chain ID: ${chainId}`);
+
+      // Test RPC connection before starting fork
+      logger.info('Testing RPC connection...');
+      try {
+        const testProvider = new JsonRpcProvider(url);
+        const latestBlock = await testProvider.getBlockNumber();
+        logger.success(`RPC connection successful. Latest block: ${latestBlock}`);
+        
+        if (forkBlockNumber > latestBlock) {
+          logger.warn(`Fork block number (${forkBlockNumber}) is higher than latest block (${latestBlock}). Using latest block instead.`);
+        }
+      } catch (error) {
+        throw new NetworkError(
+          `Failed to connect to ${taskArgs.n} RPC. Please check your RPC URL and network connectivity.`,
+          taskArgs.n,
+          error as Error
+        );
+      }
+
+      // Runs the Hardhat node with the specified forked network and port
+      logger.info('Starting Hardhat node...');
+      await hre.run('node', {
+        fork: url,  // Specifies the network to fork
+        port: port, // Specifies the port for the forked node
+        forkBlockNumber: forkBlockNumber, // Specifies the block number to fork from
+        chainId: chainId, // Sets the chain ID for the forked network
+        hostname: '127.0.0.1', // Bind to localhost
+      });
+
+    } catch (error) {
+      const logger = createLogger('customFork');
+      
+      if (error instanceof ConfigurationError) {
+        logger.error('Configuration Error:', error);
+        process.exit(1);
+      } else if (error instanceof NetworkError) {
+        logger.error('Network Error:', error);
+        logger.error('Original error:', error.originalError);
+        process.exit(1);
+      } else {
+        logger.error(`Unexpected error starting ${taskArgs.n} fork:`, error as Error);
+        throw error;
+      }
+    }
+  });
 
 // Exports the configuration object to be used by Hardhat
 export default config;

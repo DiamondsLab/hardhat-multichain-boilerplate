@@ -1,153 +1,306 @@
-# Hardhat Multichain Boilerplate and Examples
+# Hardhat Multichain Boilerplate
 
-This project demonstrates a **Hardhat-based multichain development environment** where multiple Ethereum Virtual Machine (EVM) compatible chains can be run locally for contract development and testing. This differs from the typical single-chain setups by enabling developers to simulate multiple blockchain networks concurrently, which is crucial for testing multichain interoperability.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-The end result of our development is the [Hardhat-Multichain](https://github.com/GeniusVentures/hardhat-multichain) node module.  This repo contains the boilerplate code and examples to get you started with multichain development using Hardhat-Multichain plugin.  It also contains other methods to fork multiple networks and deploy contracts on them although these fall short of the ease of use and functionality of the Hardhat-Multichain plugin.
+A comprehensive **Hardhat-based multichain development environment** that enables developers to build, test, and deploy smart contracts across multiple blockchain networks simultaneously. This boilerplate demonstrates best practices for multichain development using the `hardhat-multichain` plugin.
 
-This repo is set up with the following:
+## 🚀 Quick Start
 
-1) Ethereum Mainnet (forked to run locally)
-2) Polygon Mainnet (forked to run locally)
-3) Sepolia Testnet (forked to run locally)
-4) Amoy Testnet (forked to run locally)
+### Prerequisites
 
-See the [Hardhat-Multichain](https://github.com/GenisuVentures/hardhat-multichain) repo for more information on the plugin.
+- Node.js >= 16.0.0
+- Yarn or npm
+- Git
 
-## Overview of methods for multichain development
+### Installation
 
-There is a standalone method for multichain development that does not use the Hardhat-Multichain plugin.  This method is more manual and requires more setup and configuration.  It is included in this repo for reference and comparison to the Hardhat-Multichain plugin. This can be found in the test/multichain_standalone.test.ts file. This was the original method used to test multichain development.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-org/hardhat-multichain-boilerplate.git
+   cd hardhat-multichain-boilerplate
+   ```
 
-A more advanced method is demonstrated in the test/integration/multichain/directory.  This is was the second method used to test multichain development.  It is more advanced than the standalone method and is more similar to the Hardhat-Multichain plugin.  It is included in this repo for reference and comparison to the Hardhat-Multichain plugin.
+2. **Install dependencies**:
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
 
-The Hardhat-Multichain plugin is located in the packages/hardhat-multichain directory.  This is the most advanced method for multichain development and is the recommended method for multichain development.
+3. **Build the plugin**:
+   ```bash
+   cd packages/hardhat-multichain
+   yarn build
+   cd ../..
+   ```
 
-## Installation of Hardhat-Multichain plugin
+4. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your RPC URLs and API keys
+   ```
 
-We run a special setup of the Hardhat-Multichain plugin in this environment.  To install the Hardhat-Multichain plugin in this environment we run `yarn link` in the `./packages/hardhat-multichain` directory and `yarn link` in the main directory.  This allows for the submodule to be linked to the main directory and used as a node module but remain a separate repository.  This is the recommended method for using the Hardhat-Multichain plugin in this environment only.  This is a development environment and not a production environment. Currently we also build the plugin in the packages directory since it does not include the `dist/` directory in the repository.  When working on the plugin itself, you can run `yarn build` in the `./packages/hardhat-multichain` directory to build the plugin.
+5. **Run tests**:
+   ```bash
+   yarn test
+   ```
 
-## Configuration of Hardhat-Multichain plugin
+## 🌐 Supported Networks
 
-see the [Hardhat-Multichain plugin](https://github.com/GeniusVentures/hardhat-multichain) repo for more information on the plugin.
+### Mainnets
+- **Ethereum** (Chain ID: 1)
+- **Polygon** (Chain ID: 137)
+- **Arbitrum** (Chain ID: 42161)
+- **Optimism** (Chain ID: 10)
+- **Base** (Chain ID: 8453)
 
-## Tests of secondary methods
+### Testnets  
+- **Sepolia** (Chain ID: 11155111)
+- **Polygon Amoy** (Chain ID: 80002)
+- **Arbitrum Sepolia** (Chain ID: 421614)
+- **Base Sepolia** (Chain ID: 84532)
 
-There currently is a test contract that retrieves its chainId (to prepare for deploying the same contract on multiple networks). It has a set of small unit tests to ensure you can deploy it to mulitple EVMs.
+### Local Networks
+- **Hardhat** (Chain ID: 31337)
+- **Localhost** (Chain ID: 31337)
 
-In addition, there are configurations to be able to run and test on two networks concurrently.
+## 🛠 Features
 
-## Setup
+### ✅ Production-Ready Plugin Integration
+- **Workspace Dependencies**: Proper plugin linking without circular dependencies
+- **Type Safety**: Full TypeScript support with type extensions
+- **Error Handling**: Comprehensive error handling with retry mechanisms
+- **Configuration Validation**: Schema-based configuration validation
 
-1) Run `yarn` to install dependencies
-2) Create `.env` based on `.env.example`. Leave the `HH_CHAIN_ID` as is, and add a private key to deploy as well as provider URLs, which are retrievable on Infura or Alchemy.
+### ✅ Advanced Fork Management  
+- **Custom Fork Tasks**: Start multiple network forks with custom configurations
+- **Port Management**: Automatic port allocation to prevent conflicts
+- **Process Cleanup**: Graceful cleanup of background processes
+- **Network Validation**: Pre-fork RPC connection testing
 
-## Scripts
+### ✅ Robust Testing Infrastructure
+- **Timeout Management**: Configurable timeouts for all network operations
+- **Snapshot Support**: EVM snapshots for test isolation
+- **Async/Await Patterns**: Proper async handling throughout
+- **Comprehensive Coverage**: Tests for success and failure scenarios
 
-- `yarn fork:ethereum` - runs fork of Ethereum mainnet
-- `yarn fork:polygon` - runs fork of Polygon mainnet
-- `yarn fork:both` - runs both local forks
-- `yarn deploy` - deploys the `Multichain` contract
-- `yarn clean` - removes old build
-- `yarn compile` - compiles contracts
-- `yarn test` - runs tests in `./test`
+### ✅ Configuration Management
+- **Environment Variables**: Secure configuration via environment variables
+- **Schema Validation**: JSON schema validation for configuration files
+- **Multiple Examples**: Pre-configured examples for different use cases
+- **Migration Tools**: Helpers for upgrading configurations
 
-## 1. **Purpose and Configuration for multichain Testing**
+### ✅ Developer Experience
+- **Rich Documentation**: Comprehensive guides and troubleshooting
+- **Error Messages**: Actionable error messages with solutions
+- **Progress Indicators**: Clear feedback for long-running operations
+- **Debug Logging**: Detailed logging for debugging issues
 
-- The goal is to simulate multiple chains locally to develop and test **multichain smart contracts** interaction. This includes deploying contracts on different networks, verifying their behavior and monitoring them for events which triggers other events.:
-  - **Ethereum Mainnet**
-  - **Polygon Mainnet**
-  - **Sepolia Testnet**
-  - **Amoy Testnet**
+## 📖 Documentation
 
-- The configuration in `hardhat.config.ts` defines these networks and includes details such as:
-  - `chainId`
-  - RPC URLs for live or forked networks (using tools like Alchemy or Infura).
-  - Deployment accounts via private keys.
+- **[Configuration Guide](./config/README.md)** - Complete configuration reference
+- **[Troubleshooting Guide](./docs/troubleshooting.md)** - Common issues and solutions
+- **[API Documentation](./docs/api.md)** - Plugin API reference
+- **[Examples](./examples/)** - Real-world usage examples
 
-- The project supports **forking** the state of mainnets or testnets locally, allowing the developer to interact with contracts deployed on real networks while using local nodes.
+## 🚀 Usage Examples
+
+### Starting Network Forks
+
+```bash
+# Start Ethereum mainnet fork
+yarn fork:ethereum
+
+# Start Polygon mainnet fork  
+yarn fork:polygon
+
+# Start multiple forks simultaneously
+yarn fork:both
+
+# Custom fork with specific block
+npx hardhat customFork --n ethereum --b 18000000
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+yarn test
+
+# Run multichain tests
+yarn test-multichain
+
+# Run tests with debug output
+DEBUG=hardhat* yarn test
+```
+
+### Contract Deployment
+
+```bash
+# Deploy to local hardhat network
+yarn deploy
+
+# Deploy with specific network
+npx hardhat deploy --network hardhat
+```
+
+## 🔧 Configuration
+
+### Environment Variables (.env)
+
+```bash
+# Network RPC URLs
+ETHEREUM_RPC=https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY
+POLYGON_RPC=https://polygon-mainnet.g.alchemy.com/v2/YOUR_API_KEY
+SEPOLIA_RPC=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+
+# Block numbers to fork from (0 = latest)
+ETH_BLOCK=18000000
+POLY_BLOCK=50000000
+SEPOLIA_BLOCK=4000000
+
+# Deployer private key (for testing only!)
+DEPLOYER_PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
+
+### Hardhat Configuration (hardhat.config.ts)
+
+```typescript
+export default {
+  chainManager: {
+    chains: {
+      ethereum: {
+        rpcUrl: process.env.ETHEREUM_RPC,
+        blockNumber: parseInt(process.env.ETH_BLOCK || "0"),
+        chainId: 1
+      },
+      polygon: {
+        rpcUrl: process.env.POLYGON_RPC,
+        blockNumber: parseInt(process.env.POLY_BLOCK || "0"),
+        chainId: 137
+      }
+    }
+  }
+};
+```
+
+## 📝 Scripts
+
+| Script | Description |
+|--------|-------------|
+| `yarn test` | Run all tests |
+| `yarn test-multichain` | Run multichain-specific tests |
+| `yarn fork:ethereum` | Start Ethereum mainnet fork |
+| `yarn fork:polygon` | Start Polygon mainnet fork |
+| `yarn fork:both` | Start both forks simultaneously |
+| `yarn deploy` | Deploy contracts |
+| `yarn compile` | Compile smart contracts |
+| `yarn clean` | Clean build artifacts |
+
+## 🏗 Project Structure
+
+```
+hardhat-multichain-boilerplate/
+├── contracts/              # Smart contracts
+│   └── MultiChain.sol     # Example multichain contract
+├── test/                   # Test files
+│   └── multichain_plugin.test.ts
+├── utils/                  # Utility functions
+│   ├── error-handling.ts  # Error handling and retry logic
+│   ├── config-validator.ts # Configuration validation
+│   └── deploy.ts          # Deployment utilities
+├── config/                 # Configuration examples
+│   ├── example-mainnet.json
+│   ├── example-testnet.json
+│   └── README.md
+├── docs/                   # Documentation
+│   └── troubleshooting.md
+├── packages/               # Plugin source code
+│   └── hardhat-multichain/
+├── hardhat.config.ts       # Hardhat configuration
+├── package.json           # Dependencies and scripts
+└── .env.example           # Environment variable template
+```
+
+## 🔍 Example: Testing Across Multiple Chains
+
+```typescript
+import { multichain } from "hardhat-multichain";
+import { ethers } from "hardhat";
+
+describe("Multichain Contract Tests", function () {
+  const chains = multichain.getProviders();
+  
+  for (const [chainName, provider] of chains.entries()) {
+    it(`should deploy on ${chainName}`, async function () {
+      // Deploy contract on this specific chain
+      const Contract = await ethers.getContractFactory("MultiChain");
+      const contract = await Contract.deploy();
+      await contract.deployed();
+      
+      // Verify deployment
+      const result = await contract.getChain();
+      expect(result.chainId).to.equal(await provider.getNetwork().chainId);
+    });
+  }
+});
+```
+
+## 🚨 Common Issues & Solutions
+
+### Plugin Not Loading
+```bash
+# Rebuild the plugin
+cd packages/hardhat-multichain && yarn build && cd ../..
+yarn install
+```
+
+### RPC Connection Errors
+- Check your API keys and quotas
+- Verify RPC URLs in `.env` file
+- Try different block numbers or use `0` for latest
+
+### Port Conflicts
+```bash
+# Kill existing processes
+lsof -ti:8545 | xargs kill -9
+```
+
+See the [Troubleshooting Guide](./docs/troubleshooting.md) for more solutions.
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details.
+
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass: `yarn test`
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to the branch: `git push origin feature/amazing-feature`
+8. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Hardhat](https://hardhat.org/) - Ethereum development environment
+- [Ethers.js](https://docs.ethers.io/) - Ethereum library for JavaScript
+- [OpenZeppelin](https://openzeppelin.com/) - Smart contract security standards
+
+## 📞 Support
+
+- **Documentation**: Check our comprehensive guides in the `docs/` directory
+- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/your-org/hardhat-multichain-boilerplate/issues)
+- **Discussions**: Join the community in [GitHub Discussions](https://github.com/your-org/hardhat-multichain-boilerplate/discussions)
 
 ---
 
-## 2. **Scripts for Forking Networks**
-
-- Defined in `package.json`, the scripts enable running local forks:
-  - **`yarn fork:ethereum`**: Fork Ethereum Mainnet.
-  - **`yarn fork:polygon`**: Fork Polygon Mainnet.
-  - **`yarn fork:both`**: Run both Ethereum and Polygon forks concurrently.
-
-- Forking is managed via the `customFork` Hardhat task in `hardhat.config.ts`, which sets up the runtime environment (`HardhatRuntimeEnvironment`) for the specified network:
-  - URLs are dynamically assigned based on the fork name (`ethereum` or `polygon`).
-  - A port is specified for each fork to avoid conflicts.
-
----
-
-## 3. **Smart Contract: `Multichain`**
-
-- Located in `contracts/Multichain.sol`.
-- Provides the `getChain` function, which:
-  - Returns the chain ID using `block.chainid`.
-  - Maps the chain ID to a human-readable chain name (e.g., Ethereum, Polygon, etc.).
-- This is used to verify the deployment and runtime behavior across multiple chains.
-
----
-
-## 4. **Deployment: `deploy/multichain_deploy.ts`**
-
-- Deploys the `Multichain` contract on the configured chain(s).
-- Uses the utility function `deployContract` (`utils/deploy.ts`), which abstracts Hardhat's deployment process:
-  - Fetches the deployment account (`deployer`) from the named accounts in `hardhat.config.ts`.
-  - Logs the deployment process for better debugging and auditing.
-
----
-
-## 5. **Testing Across Multiple Chains**
-
-- Tests are in `test/multichain_test.ts` and utilize:
-  - `MockProvider` from `ethereum-waffle` to simulate blockchain providers.
-  - Forked URLs (`ethUrl`, `polyUrl`) from `hardhat.config.ts` for specific chain simulations.
-  - Contract ABI and bytecode from the compiled artifacts.
-
-- Example Tests:
-  - Deploys the `Multichain` contract to each simulated chain.
-  - Calls the `getChain` function to verify the returned `chainId` and name:
-    - **Ethereum Mainnet**: Chain ID `1`.
-    - **Polygon Mainnet**: Chain ID `137`.
-    - **Sepolia Testnet**: Chain ID `4`.
-    - **Amoy Testnet**: Chain ID `80001`.
-  - Validates that the contract responds correctly depending on the simulated chain.
-
----
-
-## 6. **Environment Setup**
-
-- `.env` file (template in `.env.example`):
-  - Holds sensitive credentials like private keys and RPC URLs for each chain.
-  - Example:
-
-       ```TEXT
-       HH_CHAIN_ID=31337
-       DEPLOYER_PRIVATE_KEY=your_private_key
-       SEPOLIA_PROVIDER_URL=https://sepolia.infura.io/v3/your_project_id
-       ```
-
----
-
-## 7. **Key Differentiators from Single-Chain Setups**
-
-- **Multi-Network Support**:
-  - Allows simultaneous interaction with multiple chains using `yarn fork:both`.
-- **Forked Network State**:
-  - Replicates mainnet/testnet state locally, useful for testing interactions with live contracts or state-dependent logic.
-- **multichain Testing**:
-  - Enables testing of contract interoperability between chains without deploying on live networks.
-  - Reduces development costs and risks associated with live deployments.
-
----
-
-## 8. **Utility Enhancements**
-
-- **`utils/forkName.ts`**:
-  - Extends the `HardhatRuntimeEnvironment` with a `forkName` property for clarity during deployments.
-- **Logging**:
-  - Deployment logs are saved for debugging (`logs/ethereum-fork-node.log`).
-
----
+**Made with ❤️ for the multichain future**

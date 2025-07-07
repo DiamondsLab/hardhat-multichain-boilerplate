@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hardhat Multichain Configuration",
+  "description": "Configuration schema for the hardhat-multichain plugin",
+  "type": "object",
+  "properties": {
+    "chainManager": {
+      "type": "object",
+      "properties": {
+        "chains": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z][a-zA-Z0-9_-]*$": {
+              "$ref": "#/definitions/chainConfig"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["chains"],
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "chainConfig": {
+      "type": "object",
+      "properties": {
+        "rpcUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "RPC URL for the blockchain network"
+        },
+        "rpc": {
+          "type": "string",
+          "format": "uri",
+          "description": "Alternative RPC URL property name"
+        },
+        "blockNumber": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Block number to fork from (0 for latest)"
+        },
+        "chainId": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Chain ID for the network"
+        },
+        "gasPrice": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "Gas price in wei (as string)"
+        },
+        "gasLimit": {
+          "type": "integer",
+          "minimum": 21000,
+          "description": "Default gas limit for transactions"
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 1000,
+          "description": "Connection timeout in milliseconds"
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Number of retry attempts for failed requests"
+        }
+      },
+      "anyOf": [
+        {"required": ["rpcUrl"]},
+        {"required": ["rpc"]}
+      ],
+      "additionalProperties": false
+    }
+  }
+}

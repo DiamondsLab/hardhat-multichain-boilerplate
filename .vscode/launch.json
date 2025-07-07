@@ -65,38 +65,5 @@
             "smartStep": true,
             "console": "integratedTerminal",
         },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug Unit Tests",
-            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js"],
-            "program": "${workspaceFolder}/test/multichain_test.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
-            "sourceMaps": true,
-            "smartStep": true,
-            // "stopOnEntry": true,
-            "trace": true
-        }, 
-        {
-            "name": "Multichain Scaffold test",
-            "type": "node",
-            "request": "launch",
-            "console": "integratedTerminal",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "program": "${workspaceFolder}/test/integration/multichain/tests/exampleTest1.ts",
-            "env": {"DEBUG" : "hardhat*", "CHAINS" : "sepolia"},
-            "runtimeExecutable": "yarn",
-            "runtimeArgs": [
-                "test",
-            ],
-            "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**/*.js", "${workspaceFolder}/dist/**/*.js"],
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "resolveSourceMapLocations": ["${workspaceFolder}/dist/**/*.js", "${workspaceFolder}/**/*.ts"],
-            "sourceMaps": true,
-            "smartStep": true,
-        },
-
     ]
 }

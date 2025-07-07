@@ -53,6 +53,7 @@
   "dependencies": {
     "@types/debug": "^4.1.12",
     "ethers": "^5.5.4",
+    "hardhat-multichain": "file:./packages/hardhat-multichain",
     "viem": "^2.22.5",
     "winston": "^3.17.0"
   },
