@@ -3,20 +3,14 @@
     "target": "es2018",
     "module": "commonjs",
     "strict": true,
-    // "declaration": true,
-    // "declarationMap": true,
     "sourceMap": true,
     "allowJs": true,
     "checkJs": false,
     "outDir": "dist",
-    // "typeRoots": ["node_modules/@types", "./types"],
     "rootDirs": ["./src", "./test"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
   },
-  "include": ["./scripts", "./typechain-types", "./types", "./utils", "./deploy", "./test", "src/**/*.ts"],
-  // "include": ["./scripts", "./test", "./typechain"],
+  "include": ["./scripts", "./test", "./typechain-types"],
   "files": ["./hardhat.config.ts"]
 }
-
-  

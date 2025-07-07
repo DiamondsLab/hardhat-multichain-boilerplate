@@ -1,7 +1,7 @@
 {
-  "name": "hardhat-cross-chain",
+  "name": "hardhat-multichain-boilerplate",
   "version": "1.0.0",
-  "description": "Template for cross-chain testing on Hardhat",
+  "description": "Boilerplate and test environment for the hardhat-multichain plugin",
   "license": "UNLICENSED",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,18 @@
     "clear": "tsc scripts/clearlogs.ts",
     "test-multichain": "yarn hardhat test-multichain"
   },
-  "keywords": [],
-  "author": "Dan Hepworth <dhepworth@aktarytech.com>",
+  "keywords": [
+    "hardhat",
+    "multichain",
+    "crosschain",
+    "ethereum",
+    "polygon",
+    "sepolia",
+    "amoy",
+    "fork",
+    "deploy"
+  ],
+  "author": "Am0rfu5 <df3ndr@pm.me>",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-waffle": "^2.0.2",
@@ -47,5 +57,8 @@
     "winston": "^3.17.0"
   },
   "private": true,
-  "workspaces":["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
