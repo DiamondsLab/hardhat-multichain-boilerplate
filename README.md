@@ -17,12 +17,14 @@ A comprehensive **Hardhat-based multichain development environment** that enable
 ### Installation
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/your-org/hardhat-multichain-boilerplate.git
    cd hardhat-multichain-boilerplate
    ```
 
 2. **Install dependencies**:
+
    ```bash
    yarn install
    # or
@@ -30,6 +32,7 @@ A comprehensive **Hardhat-based multichain development environment** that enable
    ```
 
 3. **Build the plugin**:
+
    ```bash
    cd packages/hardhat-multichain
    yarn build
@@ -37,12 +40,14 @@ A comprehensive **Hardhat-based multichain development environment** that enable
    ```
 
 4. **Set up environment variables**:
+
    ```bash
    cp .env.example .env
    # Edit .env with your RPC URLs and API keys
    ```
 
 5. **Run tests**:
+
    ```bash
    yarn test
    ```
@@ -50,6 +55,7 @@ A comprehensive **Hardhat-based multichain development environment** that enable
 ## 🌐 Supported Networks
 
 ### Mainnets
+
 - **Ethereum** (Chain ID: 1)
 - **Polygon** (Chain ID: 137)
 - **Arbitrum** (Chain ID: 42161)
@@ -57,42 +63,49 @@ A comprehensive **Hardhat-based multichain development environment** that enable
 - **Base** (Chain ID: 8453)
 
 ### Testnets  
+
 - **Sepolia** (Chain ID: 11155111)
 - **Polygon Amoy** (Chain ID: 80002)
 - **Arbitrum Sepolia** (Chain ID: 421614)
 - **Base Sepolia** (Chain ID: 84532)
 
 ### Local Networks
+
 - **Hardhat** (Chain ID: 31337)
 - **Localhost** (Chain ID: 31337)
 
 ## 🛠 Features
 
 ### ✅ Production-Ready Plugin Integration
+
 - **Workspace Dependencies**: Proper plugin linking without circular dependencies
 - **Type Safety**: Full TypeScript support with type extensions
 - **Error Handling**: Comprehensive error handling with retry mechanisms
 - **Configuration Validation**: Schema-based configuration validation
 
 ### ✅ Advanced Fork Management  
+
 - **Custom Fork Tasks**: Start multiple network forks with custom configurations
 - **Port Management**: Automatic port allocation to prevent conflicts
 - **Process Cleanup**: Graceful cleanup of background processes
 - **Network Validation**: Pre-fork RPC connection testing
 
 ### ✅ Robust Testing Infrastructure
+
 - **Timeout Management**: Configurable timeouts for all network operations
 - **Snapshot Support**: EVM snapshots for test isolation
 - **Async/Await Patterns**: Proper async handling throughout
 - **Comprehensive Coverage**: Tests for success and failure scenarios
 
 ### ✅ Configuration Management
+
 - **Environment Variables**: Secure configuration via environment variables
 - **Schema Validation**: JSON schema validation for configuration files
 - **Multiple Examples**: Pre-configured examples for different use cases
 - **Migration Tools**: Helpers for upgrading configurations
 
 ### ✅ Developer Experience
+
 - **Rich Documentation**: Comprehensive guides and troubleshooting
 - **Error Messages**: Actionable error messages with solutions
 - **Progress Indicators**: Clear feedback for long-running operations
@@ -201,7 +214,7 @@ export default {
 
 ## 🏗 Project Structure
 
-```
+```bash
 hardhat-multichain-boilerplate/
 ├── contracts/              # Smart contracts
 │   └── MultiChain.sol     # Example multichain contract
@@ -251,6 +264,7 @@ describe("Multichain Contract Tests", function () {
 ## 🚨 Common Issues & Solutions
 
 ### Plugin Not Loading
+
 ```bash
 # Rebuild the plugin
 cd packages/hardhat-multichain && yarn build && cd ../..
@@ -258,11 +272,13 @@ yarn install
 ```
 
 ### RPC Connection Errors
+
 - Check your API keys and quotas
 - Verify RPC URLs in `.env` file
 - Try different block numbers or use `0` for latest
 
 ### Port Conflicts
+
 ```bash
 # Kill existing processes
 lsof -ti:8545 | xargs kill -9
@@ -300,7 +316,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: Check our comprehensive guides in the `docs/` directory
 - **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/your-org/hardhat-multichain-boilerplate/issues)
 - **Discussions**: Join the community in [GitHub Discussions](https://github.com/your-org/hardhat-multichain-boilerplate/discussions)
-
----
-
-**Made with ❤️ for the multichain future**

@@ -142,7 +142,7 @@ export class ConfigValidator {
 
       const configContent = fs.readFileSync(configPath, 'utf8');
       const config = JSON.parse(configContent);
-      
+
       const validation = this.validate(config);
       return {
         isValid: validation.isValid,
@@ -188,11 +188,11 @@ export class ConfigValidator {
    */
   validateEnvironmentVars(chainNames: string[]): { isValid: boolean; errors: string[] } {
     const errors: string[] = [];
-    
+
     for (const chainName of chainNames) {
       const envVarName = `${chainName.toUpperCase()}_RPC`;
       const altEnvVarName = `${chainName.toUpperCase()}_PROVIDER_URL`;
-      
+
       if (!process.env[envVarName] && !process.env[altEnvVarName]) {
         errors.push(`Missing environment variable for ${chainName}: ${envVarName} or ${altEnvVarName}`);
       }

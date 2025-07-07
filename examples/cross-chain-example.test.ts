@@ -15,9 +15,9 @@ describe("Cross-Chain Example: Price Oracle", function () {
 
   let deployedContracts: Map<string, Contract> = new Map();
   let signers: Map<string, Signer[]> = new Map();
-  
+
   const chains = multichain.getProviders() || new Map();
-  
+
   // Add hardhat network if no chains are configured
   if (chains.size === 0) {
     chains.set('hardhat', ethers.provider);
@@ -25,7 +25,7 @@ describe("Cross-Chain Example: Price Oracle", function () {
 
   before(async function () {
     logger.info('Setting up cross-chain environment...');
-    
+
     // Get signers for each chain
     for (const [chainName, provider] of chains.entries()) {
       const chainSigners = await ethers.getSigners();
@@ -46,7 +46,7 @@ describe("Cross-Chain Example: Price Oracle", function () {
         try {
           // Get the contract factory
           const MultiChain = await ethers.getContractFactory("Multichain");
-          
+
           // Deploy with retry logic
           const contract = await retryWithBackoff(async () => {
             return withTimeout(
@@ -63,10 +63,10 @@ describe("Cross-Chain Example: Price Oracle", function () {
           deployedContracts.set(chainName, contract);
 
           logger.success(`Deployed to ${chainName} at ${contract.address}`);
-          
+
           // Verify deployment
           expect(contract.address).to.match(/^0x[a-fA-F0-9]{40}$/);
-          
+
         } finally {
           // Restore original provider
           (ethers as any).provider = originalProvider;
@@ -81,27 +81,27 @@ describe("Cross-Chain Example: Price Oracle", function () {
 
       for (const [chainName, contract] of deployedContracts.entries()) {
         logger.info(`Testing interface consistency on ${chainName}`);
-        
+
         // Test that the contract has the expected interface
         expect(contract.getChain).to.be.a('function');
-        
+
         // Get chain information
         const chainResult: any = await withTimeout(
           contract.getChain(),
           30000,
           `getChain timeout on ${chainName}`
         );
-        
+
         // The contract returns [chainId, chainName] as a tuple
         expect(chainResult).to.be.an('array');
         expect(chainResult.length).to.equal(2);
-        
+
         const contractChainId = chainResult[0];
         const contractChainName = chainResult[1];
-        
+
         expect(contractChainId).to.be.a('object'); // BigNumber
         expect(contractChainName).to.be.a('string');
-        
+
         logger.success(`${chainName} interface check passed - Chain ID: ${contractChainId.toString()}, Name: ${contractChainName}`);
       }
     });
@@ -119,9 +119,9 @@ describe("Cross-Chain Example: Price Oracle", function () {
         const chainResult = await contract.getChain();
         const chainId = chainResult[0].toNumber(); // Convert BigNumber to number
         const chainName = chainResult[1];
-        
+
         const expected = expectedChainData.get(networkName);
-        
+
         if (expected) {
           expect(chainId).to.equal(expected.chainId);
           expect(chainName).to.equal(expected.name);
@@ -142,10 +142,10 @@ describe("Cross-Chain Example: Price Oracle", function () {
 
       const contractAddresses = Array.from(deployedContracts.values()).map(c => c.address);
       const uniqueAddresses = new Set(contractAddresses);
-      
+
       // Contracts should have different addresses on different chains (unless testing on same chain)
       logger.info(`Deployed to ${contractAddresses.length} chains with ${uniqueAddresses.size} unique addresses`);
-      
+
       // Test that each contract operates independently
       for (const [networkName, contract] of deployedContracts.entries()) {
         const chainResult = await contract.getChain();
@@ -200,15 +200,15 @@ describe("Cross-Chain Example: Price Oracle", function () {
       for (const [chainName, contract] of deployedContracts.entries()) {
         // Simulate a new deployment to measure time
         const startTime = Date.now();
-        
+
         try {
           const chainInfo = await contract.getChain();
           const endTime = Date.now();
           const duration = endTime - startTime;
-          
+
           deploymentTimes.set(chainName, duration);
           logger.info(`${chainName} operation took ${duration}ms`);
-          
+
           // Should respond within reasonable time
           expect(duration).to.be.lessThan(30000); // 30 seconds max
         } catch (error) {
@@ -224,7 +224,7 @@ describe("Cross-Chain Example: Price Oracle", function () {
 
   after(async function () {
     logger.info('Cross-chain example completed');
-    
+
     // Log summary
     logger.info(`Successfully tested on ${deployedContracts.size} chains:`);
     for (const [chainName, contract] of deployedContracts.entries()) {

@@ -59,14 +59,14 @@ export async function retryWithBackoff<T>(
       return await fn();
     } catch (error) {
       lastError = error as Error;
-      
+
       if (attempt === maxRetries) {
         logger(`Final attempt failed: ${error}`);
         break;
       }
 
       logger(`Attempt ${attempt + 1} failed, retrying in ${currentDelay}ms: ${error}`);
-      
+
       await new Promise(resolve => setTimeout(resolve, currentDelay));
       currentDelay = Math.min(currentDelay * backoffMultiplier, maxDelayMs);
     }
@@ -103,7 +103,7 @@ export function withTimeout<T>(
  */
 export function validateEnvironment(requiredVars: string[]): void {
   const missing = requiredVars.filter(varName => !process.env[varName]);
-  
+
   if (missing.length > 0) {
     throw new ConfigurationError(
       `Missing required environment variables: ${missing.join(', ')}. ` +
@@ -145,7 +145,7 @@ export class ProcessCleanup {
 
   static async executeAll(): Promise<void> {
     logger('Executing cleanup tasks...');
-    
+
     const cleanupPromises = this.cleanup.map(async (fn, index) => {
       try {
         await fn();
@@ -162,7 +162,7 @@ export class ProcessCleanup {
 
   static setupSignalHandlers(): void {
     const signals = ['SIGINT', 'SIGTERM', 'SIGHUP'];
-    
+
     signals.forEach(signal => {
       process.on(signal, async () => {
         logger(`Received ${signal}, performing cleanup...`);
@@ -182,7 +182,7 @@ export class ProcessCleanup {
  */
 export function createLogger(namespace: string) {
   const log = debug(namespace);
-  
+
   return {
     debug: (message: string, ...args: any[]) => log(`[DEBUG] ${message}`, ...args),
     info: (message: string, ...args: any[]) => {
