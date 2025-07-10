@@ -1,3 +1,0 @@
-[submodule "packages/hardhat-multichain"]
-	path = packages/hardhat-multichain
-	url = git@github.com:GeniusVentures/hardhat-multchain.git
