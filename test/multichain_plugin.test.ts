@@ -161,10 +161,10 @@ describe("Hardhat Multichain Tests", function () {
           provider.getBalance(signer0),
           15000,
           'Failed to get balance within 15 seconds'
-        );
+        ) as bigint;
 
         expect(balance).to.not.be.undefined;
-        logger.success(`Signer test passed for ${chainName} (balance: ${ethers.formatEther(balance.toString())} ETH)`);
+        logger.success(`Signer test passed for ${chainName} (balance: ${ethers.formatEther(balance)} ETH)`);
       });
 
       it(`should handle network errors gracefully for ${chainName}`, async function () {
