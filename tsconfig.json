@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
   },
-  "include": ["./scripts", "./test", "./typechain-types", "notes/integration", "notes/multichain_standalone.test.ts"],
+  "include": ["./scripts", "./test", "./typechain-types"],
+  "exclude": ["dist", "node_modules" , "coverage", ".nyc_output", "notes"],
   "files": ["./hardhat.config.ts"]
 }

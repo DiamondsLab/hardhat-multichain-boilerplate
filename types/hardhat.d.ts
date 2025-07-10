@@ -19,7 +19,7 @@ declare module "hardhat/types/config" {
   }
 
   export interface HardhatConfig {
-    chainManager: MultiChainConfig;
+    chainManager?: MultiChainConfig;
   }
 }
 

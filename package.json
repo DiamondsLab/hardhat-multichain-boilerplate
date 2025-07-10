@@ -2,7 +2,7 @@
   "name": "hardhat-multichain-boilerplate",
   "version": "1.0.0",
   "description": "Boilerplate and test environment for the hardhat-multichain plugin",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "log-setup": "mkdir -p logs && echo 'Starting deployment. Check logs for details :)'",
@@ -31,31 +31,35 @@
   ],
   "author": "Am0rfu5 <df3ndr@pm.me>",
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.5",
-    "@nomiclabs/hardhat-waffle": "^2.0.2",
-    "@openzeppelin/contracts": "^4.3.0",
-    "@typechain/ethers-v5": "^9.0.0",
-    "@typechain/hardhat": "^4.0.0",
-    "@types/chai": "^4.2.21",
-    "@types/jest": "^30.0.0",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "^16.7.1",
-    "@types/sinon-chai": "^4.0.0",
-    "chai": "^4.3.4",
-    "concurrently": "^6.4.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.12",
+    "@openzeppelin/contracts": "^5.1.0",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.20",
+    "@types/debug": "^4.1.12",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
+    "chai": "^4.5.0",
+    "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
-    "ethereum-waffle": "^3.4.0",
-    "hardhat": "^2.9.0",
-    "hardhat-deploy": "^0.9.0",
-    "jest": "^30.0.4",
-    "ts-jest": "^29.4.0",
-    "ts-node": "10.1.0",
+    "eslint": "^9.30.1",
+    "ethers": "^6.15.0",
+    "hardhat": "^2.22.17",
+    "hardhat-deploy": "^0.12.4",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.15",
+    "ts-node": "^10.9.2",
     "typechain": "^8.3.2",
-    "typescript": "^4.3.5"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
     "@types/debug": "^4.1.12",
-    "ethers": "^5.5.4",
     "hardhat-multichain": "file:./packages/hardhat-multichain",
     "viem": "^2.22.5",
     "winston": "^3.17.0"
@@ -64,5 +68,5 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.6.0"
 }

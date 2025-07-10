@@ -1,4 +1,4 @@
-import '@nomiclabs/hardhat-waffle';
+import '@nomicfoundation/hardhat-toolbox';
 import 'hardhat-deploy';
 import "@typechain/hardhat";
 import 'hardhat-multichain'; // This must come before the config declaration
@@ -6,13 +6,13 @@ import * as dotenv from 'dotenv';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { debug } from 'debug';
-import { JsonRpcProvider } from '@ethersproject/providers';
-import { 
-  NetworkError, 
-  ConfigurationError, 
-  validateNetworkConfig, 
+import { JsonRpcProvider } from 'ethers';
+import {
+  NetworkError,
+  ConfigurationError,
+  validateNetworkConfig,
   createLogger,
-  ProcessCleanup 
+  ProcessCleanup
 } from './utils/error-handling';
 
 declare global {
@@ -39,13 +39,13 @@ dotenv.config();
  * - AMOY_BLOCK: Block number for the Amoy network.
  * - SEPOLIA_BLOCK: Block number for the Sepolia network.
  */
-const { 
+const {
   HH_CHAIN_ID,
-  DEPLOYER_PRIVATE_KEY, 
-  SEPOLIA_RPC, 
+  DEPLOYER_PRIVATE_KEY,
+  SEPOLIA_RPC,
   ETHEREUM_RPC,
   POLYGON_RPC,
-  AMOY_RPC, 
+  AMOY_RPC,
   ETH_BLOCK,
   POLY_BLOCK,
   AMOY_BLOCK,
@@ -82,22 +82,22 @@ console.log(`Using chain ID: ${MOCK_CHAIN_ID}`);
 const config: any = { // Using any for now to avoid type conflicts
   // Specifies the Solidity version used for compiling contracts
   solidity: '0.8.3',
-  
+
   chainManager: {
     chains: {
       ethereum: {
         rpcUrl: ethUrl,
         blockNumber: ethBlock,
-      }, 
+      },
       polygon: {
         rpcUrl: polyUrl,
         blockNumber: polyBlock,
-      }, 
+      },
       sepolia: {
         rpcUrl: sepoliaUrl,
         blockNumber: sepoliaBlock,
         chainId: 11155111,
-      }, 
+      },
       amoy: {
         rpcUrl: amoyUrl,
         blockNumber: amoyBlock,
@@ -108,10 +108,10 @@ const config: any = { // Using any for now to avoid type conflicts
       }
     }
   },
-  
+
   // We use these in testing to verify the chain ID and block numbers are set correctly
-  
-  
+
+
   // Configuration for different networks
   networks: {
     // Hardhat's built-in local blockchain network
@@ -125,13 +125,13 @@ const config: any = { // Using any for now to avoid type conflicts
   namedAccounts: {
     deployer: 0, // Maps the deployer account to the first account in the wallet
   },
-  
+
   typechain: {
     outDir: "typechain-types", // Specify the output directory for TypeChain-generated files
-    target: "ethers-v5",       // Use ethers.js as the target framework
+    target: "ethers-v6",       // Use ethers.js v6 as the target framework
   },
 
-  
+
   // Mocha configuration for tests
   mocha: {
     timeout: 0, // Disables Mocha's default timeout
@@ -149,7 +149,7 @@ task(
   .addParam('b', 'block number to fork from') // Adds a parameter `b` for specifying the block number
   .setAction(async (taskArgs, hre: HardhatRuntimeEnvironment) => {
     const logger = createLogger('customFork');
-    
+
     try {
       // Validate input parameters
       if (!taskArgs.n || !taskArgs.b) {
@@ -218,7 +218,7 @@ task(
         const testProvider = new JsonRpcProvider(url);
         const latestBlock = await testProvider.getBlockNumber();
         logger.success(`RPC connection successful. Latest block: ${latestBlock}`);
-        
+
         if (forkBlockNumber > latestBlock) {
           logger.warn(`Fork block number (${forkBlockNumber}) is higher than latest block (${latestBlock}). Using latest block instead.`);
         }
@@ -242,7 +242,7 @@ task(
 
     } catch (error) {
       const logger = createLogger('customFork');
-      
+
       if (error instanceof ConfigurationError) {
         logger.error('Configuration Error:', error);
         process.exit(1);
