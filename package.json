@@ -16,7 +16,8 @@
     "compile": "yarn hardhat compile",
     "test": "yarn hardhat test",
     "clear": "tsc scripts/clearlogs.ts",
-    "test-multichain": "yarn hardhat test-multichain"
+    "test-multichain": "yarn hardhat test-multichain",
+    "postinstall": "node -e \"const fs = require('fs'); const path = require('path'); const { execSync } = require('child_process'); const hardhatMultichainDir = path.join(__dirname, 'node_modules', 'hardhat-multichain'); if (fs.existsSync(hardhatMultichainDir)) { const tsconfig = { compilerOptions: { target: 'ES2018', module: 'commonjs', lib: ['ES2018', 'ES2018.Promise', 'DOM'], declaration: true, declarationMap: true, sourceMap: true, outDir: './dist/src', strict: true, noImplicitAny: true, strictNullChecks: true, strictFunctionTypes: true, noImplicitReturns: true, noFallthroughCasesInSwitch: true, noImplicitOverride: true, rootDirs: ['./src'], esModuleInterop: true, allowSyntheticDefaultImports: true, resolveJsonModule: true, skipLibCheck: true, forceConsistentCasingInFileNames: true, moduleResolution: 'node', types: ['node'] }, exclude: ['dist', 'node_modules', 'coverage', '.nyc_output'], include: ['./src/**/*.ts'] }; const configPath = path.join(hardhatMultichainDir, 'tsconfig.json'); fs.writeFileSync(configPath, JSON.stringify(tsconfig, null, 2)); console.log('✅ Created tsconfig.json for hardhat-multichain'); try { execSync('npm run build', { cwd: hardhatMultichainDir, stdio: 'inherit' }); console.log('✅ Built hardhat-multichain successfully'); } catch (error) { console.error('❌ Failed to build hardhat-multichain:', error.message); process.exit(1); } } else { console.log('⚠️  hardhat-multichain directory not found, skipping build'); }\""
   },
   "keywords": [
     "hardhat",
