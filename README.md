@@ -19,7 +19,7 @@ A comprehensive **Hardhat-based multichain development environment** that enable
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-org/hardhat-multichain-boilerplate.git
+   git clone https://github.com/diamondslab/hardhat-multichain-boilerplate.git
    cd hardhat-multichain-boilerplate
    ```
 
@@ -314,5 +314,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 - **Documentation**: Check our comprehensive guides in the `docs/` directory
-- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/your-org/hardhat-multichain-boilerplate/issues)
-- **Discussions**: Join the community in [GitHub Discussions](https://github.com/your-org/hardhat-multichain-boilerplate/discussions)
+- **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/diamondslab/hardhat-multichain-boilerplate/issues)
+- **Discussions**: Join the community in [GitHub Discussions](https://github.com/diamondslab/hardhat-multichain-boilerplate/discussions)
