@@ -4403,13 +4403,13 @@ __metadata:
 
 "hardhat-multichain@https://github.com/GeniusVentures/hardhat-multichain.git":
   version: 1.0.0
-  resolution: "hardhat-multichain@https://github.com/GeniusVentures/hardhat-multichain.git#commit=19e133d6268127fe19910b900b2c58b04101d2cd"
+  resolution: "hardhat-multichain@https://github.com/GeniusVentures/hardhat-multichain.git#commit=7fa8d638fd749b68d162641801ca828502203dde"
   dependencies:
     winston: "npm:^3.8.0"
   peerDependencies:
     ethers: ^6.0.0
     hardhat: ^2.22.1
-  checksum: 10c0/31ca037113c70a711b6b731b46a2d5b80fbf65065dfa286677e406ca3bb16a5db2ce634823c627dc5812a904b22b524c63b602abe0107ce24c0eb4981c3ef107
+  checksum: 10c0/d8c633e1e5061925544d517f6ff7d25e36a1dc80f0497b5977e2de9f2589af1663aea9b2c37245caa2ee47776d5844f7da9e8503e7f5a88dacea2350f0fe1b12
   languageName: node
   linkType: hard
 
@@ -6607,12 +6607,12 @@ __metadata:
   linkType: hard
 
 "socks@npm:^2.8.3":
-  version: 2.8.5
-  resolution: "socks@npm:2.8.5"
+  version: 2.8.6
+  resolution: "socks@npm:2.8.6"
   dependencies:
     ip-address: "npm:^9.0.5"
     smart-buffer: "npm:^4.2.0"
-  checksum: 10c0/e427d0eb0451cfd04e20b9156ea8c0e9b5e38a8d70f21e55c30fbe4214eda37cfc25d782c63f9adc5fbdad6d062a0f127ef2cefc9a44b6fee2b9ea5d1ed10827
+  checksum: 10c0/15b95db4caa359c80bfa880ff3e58f3191b9ffa4313570e501a60ee7575f51e4be664a296f4ee5c2c40544da179db6140be53433ce41ec745f9d51f342557514
   languageName: node
   linkType: hard
 
